@@ -32,10 +32,10 @@ public class BasicClient {
 
 
 		String name = nboRegion.get("cust1");
-		System.out.println("Value for key: cust1" + name);
+		System.out.println("Value for key: cust1\t" + "Value: " + name);
 
 		name = nboRegion.get("cust2");
-		System.out.println("Value for key: cust2" + name);
+		System.out.println("Value for key: cust2\t" + "Value: " + name);
 		System.exit(0);
 	}
 

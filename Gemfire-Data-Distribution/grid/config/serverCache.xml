@@ -5,8 +5,6 @@
     xsi:schemaLocation="http://schema.pivotal.io/gemfire/cache http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd"
     version="8.1">
 
- <disk-store name="testDiskStore" />
-
  <pdx read-serialized="true" persistent="true">
      <pdx-serializer>
          <class-name>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</class-name>
@@ -16,14 +14,17 @@
      </pdx-serializer>
   </pdx>
 
-  <region name="nbo">
-     <region-attributes refid="PARTITION_PERSISTENT" disk-store-name="testDiskStore">
-     	<partition-attributes redundant-copies="1"/>
+  <region name="transaction">
+     <region-attributes refid="PARTITION">
+     	<key-constraint>io.pivotal.gemfire.data.distribution.CustomKey</key-constraint>
+     	<value-constraint>io.pivotal.domain.Transaction</value-constraint>
+     	<partition-attributes redundant-copies="1" recovery-delay="50000"
+        		 total-num-buckets="11">
+     		<partition-resolver name="SamplePartitionResolver">
+        		 <class-name>com.citi.serverside.EntitlementPartitionResolver</class-name>
+        	</partition-resolver>
+     	</partition-attributes>
      </region-attributes>
-  </region>
-
-  <region name="campaignlookup">
-     <region-attributes refid="REPLICATE_PERSISTENT"/>
   </region>
 
 </cache>
