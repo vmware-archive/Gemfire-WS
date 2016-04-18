@@ -1,0 +1,3 @@
+#!/bin/bash
+
+. gf.config

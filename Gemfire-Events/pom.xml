@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.pivotal.gemfire</groupId>
+  <artifactId>Gemfire-Events</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Gemfire-Events</name>
+  <description>Gemfire events
+</description>
+
+   <properties>
+	 <app.mainClass>io.pivotal.gemfire.event.clientside.TransactionCQClient</app.mainClass>
+   </properties>
+
+   	<dependencies>
+		<dependency>
+			<groupId>com.gemstone.gemfire</groupId>
+			<artifactId>gemfire</artifactId>
+			<version>8.2.0</version>
+	    </dependency>
+	    <dependency>
+			<groupId>io.pivotal.gemfire</groupId>
+			<artifactId>Domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>gemfire-repository</id>
+            <name>Gemfire Repository</name>
+            <url>http://dist.gemstone.com/maven/release</url>
+        </repository>
+        <repository>
+			<id>spring-release</id>
+			<url>http://repo.springsource.org/release/</url>
+		</repository>
+    </repositories>
+
+    <build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>${app.mainClass}</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:gfe="http://www.springframework.org/schema/gemfire"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/gemfire http://www.springframework.org/schema/gemfire/spring-gemfire.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:application.properties" />
+
+	<bean id="pdxSerializer" class="com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer">
+		<constructor-arg value="io.pivotal.gemfire.sdg.domain.*" />
+	</bean>
+
+	<util:properties id="gemfire-props">
+        <prop key="log-level">${gemfire.log.level}</prop>
+        <prop key="locators">${gemfire.locator.address}</prop>
+		<prop key="mcast-port">0</prop>
+		<prop key="name">gemfireCache</prop>
+    </util:properties>
+
+    <gfe:cache properties-ref="gemfire-props"
+    	pdx-serializer-ref="pdxSerializer" pdx-read-serialized="false" />
+
+    <gfe:cache-server/>
+
+    <gfe:partitioned-region id="transaction" data-policy="PARTITION" copies="1"/>
+
+</beans>
